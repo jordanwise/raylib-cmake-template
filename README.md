@@ -1,3 +1,7 @@
+# Jordan's edits
+
+See [NOTES.md](NOTES.md)
+
 # Simple and portable CMake template for raylib
 
 This is a basic project template for raylib using CMake and has been tested with Visual Studio, Visual Studio Code and CLion.

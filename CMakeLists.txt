@@ -8,6 +8,10 @@ set(FETCHCONTENT_QUIET FALSE)
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
 set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # don't build the supplied example games
 
+if (EMSCRIPTEN) 
+    message(STATUS "BUILDING EMSCRIPTEN...")
+endif()
+
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY "https://github.com/raysan5/raylib.git"
@@ -30,3 +34,21 @@ target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 # Setting ASSETS_PATH
 target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/") # Set the asset path macro to the absolute path on the dev machine
 #target_compile_definitions(${PROJECT_NAME} PUBLIC ASSETS_PATH="./assets") # Set the asset path macro in release mode to a relative path that assumes the assets folder is in the same directory as the game executable
+
+
+if (EMSCRIPTEN)
+    target_link_options( ${PROJECT_NAME} PRIVATE 
+        -sUSE_GLFW=3 
+        -sFULL_ES3=1 
+        -sUSE_WEBGL2=1 
+        -sNO_DISABLE_EXCEPTION_CATCHING
+        -sFORCE_FILESYSTEM
+        -sASYNCIFY
+        -sFETCH
+        -sEXPORTED_RUNTIME_METHODS=ccall,cwrap,stringToNewUTF8
+        -sALLOW_MEMORY_GROWTH 
+        -pthread
+        # -sPROXY_TO_PTHREAD # Can't use this for glfw init
+        -sPTHREAD_POOL_SIZE=4
+    )
+endif()

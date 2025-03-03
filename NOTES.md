@@ -10,6 +10,8 @@ emcmake cmake .. -G Ninja -DGRAPHICS=GRAPHICS_API_OPENGL_ES3
 
 - Removed PROXY_TO_PTHREAD as glfw cannot be initialised from a pThread - see https://github.com/emscripten-core/emscripten/issues/23289#issuecomment-2569577793
 
+- Files will not load in web - nothing is preloaded
+
 
 ## Building desktop
 

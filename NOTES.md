@@ -19,8 +19,10 @@ cd build
 cmake ..
 cmake --build .
 ./Debug/my_raylib_game.exe
+```
 
 ## Building emcc
+
 ```
 source ../../emsdk/emsdk_env.sh
 ./build_emcc.sh
